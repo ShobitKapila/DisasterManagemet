@@ -1,4 +1,4 @@
-#**DisasterManagemet**
+**DisasterManagemet**
 
 Creating a complete system for real-time object detection and emergency notifications with video streaming, GPS, and SMS functionality is a complex task that requires integration of various technologies, including computer vision, machine learning, GPS tracking, and SMS APIs. Below is a high-level outline of how you can approach this task using Python. Please note that this is a simplified example, and developing a full-fledged system may require more extensive work and additional components.
 
