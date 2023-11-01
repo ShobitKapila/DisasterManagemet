@@ -1,97 +1,113 @@
-import cv2
 import tensorflow as tf
-import numpy as np
-
-# Load the four trained models
-fire_detection_model = tf.keras.models.load_model('fire_detection_model.h5')
-traffic_accident_detection_model = tf.keras.models.load_model('traffic_accident_detection_model.h5')
-flood_area_detection_model = tf.keras.models.load_model('flood_area_detection_model.h5')
-collapsed_building_detection_model = tf.keras.models.load_model('collapsed_building_detection_model.h5')
-
-# Preprocess the input video
-def preprocess_video(video_file, resize_shape=(224, 224), format='MP4', normalize=True):
-    """Pre-processes a video file.
-    Args:
-        video_file (str): The path to the video file.
-        resize_shape (tuple, optional): The shape to resize the video to. Default: (224, 224).
-        format (str, optional): The format to convert the video to. Default: 'MP4'.
-        normalize (bool, optional): Whether to normalize the pixel values. Default: True.
-
-    Returns:
-        np.ndarray: The pre-processed video.
-    """
-    # Load the video file
-    video = cv2.VideoCapture(video_file)
-
-    # Resize the video
-    video = cv2.resize(video, resize_shape)
-
-    # Convert the video to a specific format
-    video = cv2.cvtColor(video, cv2.COLOR_BGR2RGB)
-
-    # Normalize the pixel values
-    if normalize:
-        video = video / 255.0
-
-    return video
-
-# Feed the preprocessed video to each of the four models
-fire_predictions = fire_detection_model.predict(video_dataset)
-traffic_accident_predictions = traffic_accident_detection_model.predict(video_dataset)
-flood_area_predictions = flood_area_detection_model.predict(video_dataset)
-collapsed_building_predictions = collapsed_building_detection_model.predict(video_dataset)
-
-# Predict the label of the video for each model
-fire_label = 'fire' if fire_predictions[0][0] > 0.5 else 'no fire'
-traffic_accident_label = 'traffic accident' if traffic_accident_predictions[0][0] > 0.5 else 'no traffic accident'
-flood_area_label = 'flood area' if flood_area_predictions[0][0] > 0.5 else 'no flood area'
-collapsed_building_label = 'collapsed building' if collapsed_building_predictions[0][0] > 0.5 else 'no collapsed building'
-
-# If the predicted label is "fire", "traffic_accident", "flood area", or "collapsed building" for any of the models, then the video contains that type of event.
-event_label = fire_label or traffic_accident_label or flood_area_label or collapsed_building_label
-
-# Extract the detected part of the video for the event that was detected.
-def extract_detected_part_of_video(video, bounding_box):
-    """Extracts the detected part of a video.
-    Args:
-        video (np.ndarray): The video.
-        bounding_box (tuple): The bounding box of the detected object.
-
-    Returns:
-        np.ndarray: The extracted video.
-    """
-    # Crop the video to the bounding box
-    cropped_video = video[bounding_box[0]:bounding_box[2], bounding_box[1]:bounding_box[3]]
-
-    return cropped_video
-# Show the output of the detected part of the video.
 import cv2
-# Load the detected video
-detected_video = cv2.VideoCapture('detected_video.mp4')
-# Display the detected video
-while detected_video.isOpened():
-    ret, frame = detected_video.read()
-    if ret:
-        cv2.imshow('Detected Video', frame)
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
-    else:
+import numpy as np
+from twilio.rest import Client
+import os
+from urllib.parse import quote
+
+# Set up Twilio credentials
+twilio_account_sid = 'AC1f619ff115f7554d37bbc186fe7f45e3'
+twilio_auth_token = 'bd19fe33e59e5a4a9d82c7e776c10999'
+client = Client(twilio_account_sid, twilio_auth_token)
+# Define your phone numbers
+sender_phone_number = '+12564019504'
+receiver_phone_number = '+91 9985506841'
+
+message_body = 'Emergency detected! View the video footage.'
+
+target_size = (224,224)
+
+# def send_twilio_message(video_path):
+#     message = client.messages.create(
+#         body=message_body,
+#         from_=sender_phone_number,
+#         to=receiver_phone_number,
+#         media_url=[video_path]
+#     )
+def send_twilio_message(message_body):
+    message = client.messages.create(
+        body=message_body,
+        from_=sender_phone_number,
+        to=receiver_phone_number
+    )
+def preprocess_frame(frame, target_size):
+    # Resize the frame to the target size
+    frame = cv2.resize(frame, target_size)
+    frame = frame / 255.0  # Normalize the pixel values (if your model expects values in [0, 1])
+    return frame
+
+collapsed_building_model = tf.keras.models.load_model('collapsed_building_detection_model.h5')
+fire_model = tf.keras.models.load_model('fire_detection_model.h5')
+flood_model = tf.keras.models.load_model('flood_area_detection_model.h5')
+traffic_accident_model = tf.keras.models.load_model('traffic_accident_detection_model.h5')
+
+cap = cv2.VideoCapture(0) # 0 corresponds to the default camera (usually the webcam)
+
+while True:
+    ret, frame = cap.read()
+    # Preprocess the frame (resize, normalize, etc.) as needed for your models
+    preprocessed_frame = preprocess_frame(frame, target_size)
+    # Run each model for detection
+    is_collapsed_building = collapsed_building_model.predict(np.expand_dims(preprocessed_frame, axis=0))
+    is_fire = fire_model.predict(np.expand_dims(preprocessed_frame, axis=0))
+    is_flood = flood_model.predict(np.expand_dims(preprocessed_frame, axis=0))
+    is_traffic_accident = traffic_accident_model.predict(np.expand_dims(preprocessed_frame, axis=0))
+
+    # Define detection thresholds and actions to take based on detection results
+    collapsed_building_threshold = 0.7
+    fire_threshold = 0.7
+    flood_threshold = 0.7
+    traffic_accident_threshold = 0.5
+
+    # Display the result on the frame
+    if is_collapsed_building > collapsed_building_threshold:
+        x, y, w, h = 100, 100, 200, 200
+        cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
+        cv2.putText(frame, 'Collapsed Building', (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+        cv2.imwrite('collapsed_building_detection.jpg', frame)
+        # image_path = os.path.abspath('collapsed_building_detection.jpg')
+        # encoded_image_path = quote(image_path)
+        send_twilio_message("collapsed building accident detected")
+    if is_fire > fire_threshold:
+        x, y, w, h = 100, 100, 200, 200
+        cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
+        cv2.putText(frame, 'fire detected', (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+        cv2.imwrite('fire_detection.jpg', frame)
+        # image_path = os.path.abspath('fire_detection.jpg')
+        # encoded_image_path = quote(image_path)
+        send_twilio_message("fire accident detected")
+
+    if is_flood > flood_threshold:
+        x, y, w, h = 100, 100, 200, 200
+        cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
+        cv2.putText(frame, 'flood detected', (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+        cv2.imwrite('flood_detection.jpg', frame)
+        # image_path = os.path.abspath('flood_detection.jpg')
+        # encoded_image_path = quote(image_path)
+        send_twilio_message("flood accident detected")
+
+    if is_traffic_accident > traffic_accident_threshold:
+        x, y, w, h = 100, 100, 200, 200
+        cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
+        cv2.putText(frame, 'traffic accident', (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+        cv2.imwrite('traffic_accident_detection.jpg', frame)
+        # image_path = os.path.abspath('traffic_accident_detection.jpg')
+        # encoded_image_path = quote(image_path)
+        send_twilio_message("traffic accident detected")
+
+    # Show the frame with annotations
+    cv2.imshow('Live Detection', frame)
+
+    # Break the loop if 'q' is pressed
+    if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
-# Release the video capture
-detected_video.release()
 
-# Close all windows
+cap.release()
 cv2.destroyAllWindows()
 
-video_file = 'input_video.mp4'
-preprocessed_video = preprocess_video(video_file)
 
-bounding_box = (10, 20, 100, 120)
 
-# Extract the detected part of the video
-extracted_video = extract_detected_part_of_video(video, bounding_box)
 
-# Save the extracted video as a new file
-cv2.imwrite('extracted_video.mp4', extracted_video)
+
 
