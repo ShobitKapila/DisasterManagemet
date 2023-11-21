@@ -8,7 +8,7 @@ import numpy as np
 collapsed_building_image_files = os.listdir('collapsed_building')
 normal_image_files = os.listdir('normal')
 
-# Create a TensorFlow model
+# Create a TensorFlow model with 4 dense layers
 model = tf.keras.Sequential([
     tf.keras.layers.Conv2D(32, (3, 3), activation='relu', input_shape=(224, 224, 3)),
     tf.keras.layers.MaxPooling2D((2, 2)),
@@ -16,6 +16,8 @@ model = tf.keras.Sequential([
     tf.keras.layers.MaxPooling2D((2, 2)),
     tf.keras.layers.Flatten(),
     tf.keras.layers.Dense(128, activation='relu'),
+    tf.keras.layers.Dense(64, activation='relu'),
+    tf.keras.layers.Dense(32, activation='relu'),
     tf.keras.layers.Dense(1, activation='sigmoid')
 ])
 
