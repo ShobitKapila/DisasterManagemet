@@ -1,0 +1,26 @@
+**cheaper alternatives to Pixhawk 6X**
+
+* **Emlid Navio2:** This is a popular alternative to the Pixhawk, and it is known for its affordability and versatility. It is compatible with a wide range of drones, and it offers a variety of features, including GPS, yaw control, and altitude hold. The Navio2 is also open source, which means that you can customize it to your specific needs.
+
+* **Crazyflie 2.1 Flight Controller:** This is a small and lightweight flight controller that is perfect for small drones. It is easy to use and configure, and it offers a variety of features, including altitude hold, yaw control, and LED lighting.
+
+* **Matek F405-Wing:** This is a powerful and feature-rich flight controller that is designed for larger drones. It offers a variety of features, including GPS, yaw control, altitude hold, and obstacle avoidance.
+
+* **Betaflight F4 FC:** This is a budget-friendly flight controller that is perfect for beginners. It offers a variety of features, including GPS, yaw control, altitude hold, and LED lighting.
+
+* **Flywoo Nazgul5 V2:** This is a high-performance flight controller that is designed for racing drones. It offers a variety of features, including GPS, yaw control, altitude hold, and OSD.
+
+If you are looking for a versatile and affordable flight controller, the Emlid Navio2 is a good option. 
+If you are looking for a small and lightweight flight controller for a small drone, the Crazyflie 2.1 is a good choice. 
+If you are looking for a powerful and feature-rich flight controller for a larger drone, the Matek F405-Wing is a good option.
+If you are looking for a budget-friendly flight controller for beginners, the Betaflight F4 FC is a good choice.
+
+**There differences with Pixhawk 6X**
+
+* **Emlid Navio2:** The Navio2 uses a lower-powered STM32F411 processor than the Pixhawk 6X, which means that it has less processing power and RAM. However, the Navio2 is still capable of running the PX4 autopilot software, and it offers a variety of features that are not available on the Pixhawk 6X, such as a magnetometer and a barometer.
+* **Crazyflie 2.1 Flight Controller:** The Crazyflie 2.1 uses a much smaller and less powerful processor than the Pixhawk 6X, which means that it is not as suitable for larger or more complex drones. However, the Crazyflie 2.1 is very lightweight and portable, making it a good choice for small drones.
+* **Matek F405-Wing:** The Matek F405-Wing is a more powerful and feature-rich flight controller than the Pixhawk 6X. It has a faster processor, more RAM, and more I/O ports. However, it is also more expensive.
+* **Betaflight F4 FC:** The Betaflight F4 FC is the most affordable option on this list. It is a basic flight controller that does not offer as many features as the other options. However, it is a good choice for beginners or for those who are looking for a budget-friendly option.
+* **Flywoo Nazgul5 V2:** The Flywoo Nazgul5 V2 is a high-performance flight controller that is designed for racing drones. It has a powerful processor and a lot of I/O ports. However, it is not as versatile as the other options on this list.
+
+In terms of firmware, the Pixhawk 6X uses the PX4 autopilot software, which is a popular and well-supported open source autopilot software. The other alternatives also use open source autopilot software, but they may not be as well-supported as the PX4 autopilot software.

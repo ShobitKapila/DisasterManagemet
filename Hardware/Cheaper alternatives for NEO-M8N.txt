@@ -1,0 +1,5 @@
+**Cheaper alternatives for NEO-M8N**
+
+The U-blox NEO-M8N is a good middle-ground option between the other modules. It offers good accuracy and features at a reasonable price. The SparkFun GPS-RTK2B is the most accurate module on this list, but it is also the most expensive. The Adafruit Ultimate GPS Breakout is the least expensive module on this list, but it also offers the lowest accuracy. The Quectel L86-RTK and Trimble R12 are both high-end modules that offer the highest possible accuracy.
+
+Ultimately, the best GNSS module for you will depend on your specific needs and budget. If you need the highest possible accuracy, then the SparkFun GPS-RTK2B is a good option. If you are on a budget, then the Adafruit Ultimate GPS Breakout is a good option. If you need a good balance of accuracy and price, then the U-blox NEO-M8N is a good option.

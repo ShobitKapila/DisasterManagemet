@@ -1,0 +1,22 @@
+**Links for the hardware components**
+
+1. Drone Frame and Propulsion System:
+   a. Drone Frame: DJI F450/F550 frame
+   b. Motors: Brushless motors -  Set of 4 A2212 1400KV Brushless Motor for Drone with SimonK 30A ESC and Orange 1045 Propeller Set 
+   c. Propellers: any propeller that matches with the motor speed
+2. Flight Controller: https://robocraze.com/blogs/post/best-flight-controller-for-drone
+   a. Controller board: SpeedyBee F405
+   b. Firmware: Betaflight 
+3. Sensors:
+   a. GPS Module: NEO-6M 
+   b. Inertial Measurement Unit (IMU):1295
+   c. Cameras:Raspberry Pi Camera Module
+4. Power System:
+   a. LiPo Batteries:
+   b. Battery Charger and Balancer:
+5. Communication System:
+   a. Telemetry Module:  
+   b. Video Transmission: not paticularly needed 
+6. Collision Avoidance System:
+   ToF sensors and LiDAR sensors are a good option for long-range applications. Infrared sensors can be used in both short-range and long-range applications.
+   a. Ultrasonic Sensors: 10$

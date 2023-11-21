@@ -1,0 +1,23 @@
+**Links for the hardware components**
+
+1. Drone Frame and Propulsion System:
+   a. Drone Frame: DJI F450/F550 frame
+   b. Motors: Brushless motors -  DJI E310 or T-Motor MN2212. 
+   c. Propellers: any propeller that matches with the motor speed
+2. Flight Controller: https://robocraze.com/blogs/post/best-flight-controller-for-drone
+   a. Controller board: Pixhawk 6X
+   b. Firmware: ArduPilot or PX4 
+3. Sensors:
+   a. GPS Module: Ublox NEO-M8N or other alternatives 
+   b. Inertial Measurement Unit (IMU):MPU-9250 or MPU-6000
+   c. Cameras:Raspberry Pi Camera Module
+4. Power System:
+   a. LiPo Batteries:HobbyKing 14.8V 5000mAh 4S 35C Lipo Pack
+   b. Battery Charger and Balancer:HTRC T6
+5. Communication System:
+   a. Telemetry Module:  3DR Radio
+   b. Video Transmission: not paticularly needed 
+6. Collision Avoidance System:
+   ToF sensors and LiDAR sensors are a good option for long-range applications. Infrared sensors can be used in both short-range and long-range applications.
+   a. LiDAR Sensor: 100$
+   b. Ultrasonic Sensors: 10$

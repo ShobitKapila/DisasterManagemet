@@ -1,0 +1,19 @@
+cost caluclation for drone :-
+
+1. drone frame - 50$
+2. motors - 30$
+3. propellers - 10$
+4. PiXhawk 6X { hardware } - 58$
+5. GPS module - 7$
+6. IMU sensor - 15$
+7. Cameras - 25$
+8. Batteries - 40$
+9. battery charger and balancer - 20$
+10. telemetry module - 50$
+11. video transmission { can be exculded } - 900$
+12. Sensor for collision detection for longRange- 100$ {LIDAR sensor }
+13. sensor for collison detection for shortrange - 10$ 
+
+Total estimated least cost- 
+Total estimated highest cost - 
+

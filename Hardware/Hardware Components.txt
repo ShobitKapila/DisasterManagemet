@@ -1,0 +1,52 @@
+**Hardware Components:**
+
+1. **Drone Frame and Propulsion System:**
+   - Drone Frame: Select a suitable frame based on your payload requirements. Example: DJI F450/F550 frame.
+   - Motors: Brushless DC motors like DJI E310 or T-Motor MN2212.
+   - Propellers: Match the propellers with the motors for optimal thrust and efficiency.
+
+2. **Flight Controller:**
+   - Pixhawk 4: A versatile flight controller with advanced features and GPS capabilities.
+   - ArduPilot or PX4 Firmware: Open-source firmware that can be loaded onto the Pixhawk.
+
+3. **Sensors:**
+   - GPS Module: Ublox NEO-M8N or Here GNSS module for accurate positioning.
+   - Inertial Measurement Unit (IMU): MPU-9250 or MPU-6000 for orientation sensing.
+   - Cameras: Raspberry Pi Camera Module or DJI Zenmuse cameras for capturing media.
+
+4. **Power System:**
+   - LiPo Batteries: High-capacity batteries like Tattu, Gens Ace, or DJI Intelligent Flight Batteries.
+   - Battery Charger and Balancer: To safely charge and balance the LiPo batteries.
+
+5. **Communication System:**
+   - Telemetry Module: 3DR Radio or Holybro Telemetry Radio for communication with the ground station.
+   - Video Transmission: Analog systems like Fat Shark or digital systems like DJI FPV for video streaming.
+
+6. **Collision Avoidance System:**
+   - LiDAR Sensor: LightWare SF20 or Velodyne Puck LITE for obstacle detection and ranging.
+   - Ultrasonic Sensors: HC-SR04 or similar for close-range obstacle avoidance.
+
+**Software Components:**
+
+1. **Autonomous Navigation Software:**
+   - ArduPilot or PX4 Firmware: Supports waypoint-based autonomous navigation.
+   - Mission Planner or QGroundControl: Ground station software for mission planning and execution.
+
+2. **Path Planning and Collision Avoidance:**
+   - ROS (Robot Operating System): Offers packages for path planning and obstacle avoidance.
+   - PX4 Avoidance System: PX4's built-in avoidance system for obstacle detection.
+
+3. **Computer Vision and Machine Learning:**
+   - OpenCV: Computer vision library for image and video processing.
+   - TensorFlow or PyTorch: Frameworks for implementing machine learning models.
+   - YOLO (You Only Look Once): Object detection model for detecting user-defined perimeters.
+
+4. **User Interface and Control:**
+   - Ground Control Software: Customize QGroundControl or Mission Planner for user interaction.
+
+5. **Data Storage and Transmission:**
+   - Onboard Storage: High-capacity microSD cards for storing captured media.
+   - Data Transmission: Telemetry radios for sending data to the ground station.
+
+6. **Unusual Activity Detection:**
+   - Custom Machine Learning Model: Train your model to detect unusual activities in images and videos.
